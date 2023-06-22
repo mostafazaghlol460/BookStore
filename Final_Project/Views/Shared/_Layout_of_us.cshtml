@@ -43,7 +43,7 @@
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
                         <div class="full">
                             <div class="center-desk">
-                                <div class="logo"> <a href="index.html"><img src="~/images/logo.png" alt="#"></a> </div>
+                                <div class="logo"> <a asp-action="Index" asp-controller="Home"><img src="~/images/logo.png" alt="#"></a> </div>
                             </div>
                         </div>
                     </div>
@@ -52,13 +52,24 @@
                             <div class="limit-box">
                                 <nav class="main-menu">
                                     <ul class="menu-area-main">
-                                        <li>  <a asp-action="index" asp-controller="Home">Home</a> </li>
-                                        <li class="active"> <a asp-action="About" asp-controller="Home">About us</a> </li>
-                                        <li><a href="books.html">Our Books</a></li>
-                                        <li><a href="library.html">library</a></li>
-                                        <li><a href="contact.html">Contact us</a></li>
-                                        <li class="mean-last"> <a asp-action ="LogIn" asp-controller="Home">LogIn</a> </li>
-                                        <li class="mean-last"> <a asp-action="Register" asp-controller="Home">Register</a> </li>
+                                        @if (User.IsInRole("User") == true)
+                                        {
+                                            <li>  <a asp-action="Index" asp-controller="Home">Home</a> </li>
+
+                                            <li>  <a asp-action="getAll" asp-controller="Book">Our Books</a> </li>
+                                        }
+                                        @if (User.IsInRole("Admin") == true)
+                                        {
+                                            <li>  <a asp-action="DashBoard" asp-controller="Book">DashBoard</a> </li>
+                                        }
+                                        <li> <a asp-action="About" asp-controller="Home">About us</a> </li>
+                                        <li> <a href="contact.html">Contact us</a></li>
+                                        @if (!User.Identity.IsAuthenticated)
+                                        {
+                                            <li class="mean-last"> <a asp-action="LogIn" asp-controller="Home">LogIn</a> </li>
+                                            <li class="mean-last"> <a asp-action="Register" asp-controller="Home">Register</a> </li>
+                                        }
+                                        <li class="mean-last"> <a asp-action="Logout" asp-controller="Home">LogOut</a> </li>
                                     </ul>
                                 </nav>
                             </div>

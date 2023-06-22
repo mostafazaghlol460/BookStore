@@ -112,7 +112,6 @@ namespace Final_Project.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Photo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

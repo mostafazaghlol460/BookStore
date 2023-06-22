@@ -4,14 +4,14 @@ namespace Final_Project.Reposatiory
 {
     public interface IBookReposatiory
     {
-
         List<Book> GetBooks();
-
-        Author GetBook(int id);
-
+        Book GetBook(string id);
         void Insert(Book book);
-        void Update(int id, Book book);
-        void Delete(int id);
+        void Update(string id, Book book);
+        void Delete(string id);
+        void Search(string Name);
+        void Searchh(string Name);
+
         void Save();
     }
 }

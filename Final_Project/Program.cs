@@ -22,7 +22,8 @@ namespace Final_Project
             });
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                           .AddEntityFrameworkStores<BookStoreContext>();
-            
+            builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+            builder.Services.AddScoped<IBookReposatiory, BookReposatiory>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

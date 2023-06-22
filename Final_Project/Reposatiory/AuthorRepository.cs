@@ -1,44 +1,62 @@
 ﻿using Final_Project.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Final_Project.Reposatiory
 {
     public class AuthorRepository : IAuthorRepository
     {
-        private readonly BookStoreContext _db;
-        public AuthorRepository(BookStoreContext db)
+        BookStoreContext bookStoreContext;
+        public AuthorRepository(BookStoreContext _bookStoreContext)
         {
-            _db = db;
+            bookStoreContext = _bookStoreContext;
         }
-        public void Delete(int id)
+        private string GenerateUniqueId()
         {
-            // when i made delete i didn't make it delete i will make soft delete but  i will do later 
+            Guid guid = Guid.NewGuid();
+            return guid.ToString();
         }
+
 
         public Author GetAuthor(string id)
         {
-            return _db.Authors.FirstOrDefault(a => a.Id == id);
+            Author author = bookStoreContext.Authors.FirstOrDefault(a => a.Id == id);
+            return author;
         }
 
         public List<Author> GetAuthors()
         {
-            return _db.Authors.ToList();
+            return bookStoreContext.Authors.Include(e => e.Book).ToList();
         }
 
         public void Insert(Author author)
         {
-            _db.Authors.Add(author);
-            Save();
+            author.Id = GenerateUniqueId(); // Generate unique ID
+            bookStoreContext.Authors.Add(author);
+            bookStoreContext.SaveChanges();
         }
 
         public void Save()
         {
-            _db.SaveChanges();
+            bookStoreContext.SaveChanges();
         }
 
-        public void Update( Author author)
+        public void Update(string id, Author author)
         {
-            _db.Authors.Update(author);
-            Save();
+            //get old
+            Author oldAuthor = GetAuthor(id);
+            oldAuthor.Name = author.Name;
+            oldAuthor.Email = author.Email;
+            oldAuthor.Book = author.Book;
+            oldAuthor.Password = author.Password;
+            oldAuthor.Photo = author.Photo;
+
+
+        }
+        public void Delete(string id)
+        {
+            Author oldAuthor = GetAuthor(id);
+            bookStoreContext.Authors.Remove(oldAuthor);
+            bookStoreContext.SaveChanges();
         }
     }
 

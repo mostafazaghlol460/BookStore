@@ -73,9 +73,9 @@ namespace Final_Project.Controllers
                             }
                             if (role == "User")
                             {
-                                //return to User action 
-                            }
-                        
+                            return RedirectToAction("getAll", "Book");
+                        }
+
 
                     }
 
@@ -156,7 +156,6 @@ namespace Final_Project.Controllers
                             }
                             return RedirectToAction(nameof(logIn));
                         }
-
                     }
                     else
                     {
