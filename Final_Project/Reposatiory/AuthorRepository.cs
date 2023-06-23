@@ -1,11 +1,12 @@
 ﻿using Final_Project.Models;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Identity;
 namespace Final_Project.Reposatiory
 {
     public class AuthorRepository : IAuthorRepository
     {
-        BookStoreContext bookStoreContext;
+        Author author;
+       BookStoreContext bookStoreContext;
         public AuthorRepository(BookStoreContext _bookStoreContext)
         {
             bookStoreContext = _bookStoreContext;
@@ -26,6 +27,13 @@ namespace Final_Project.Reposatiory
         public List<Author> GetAuthors()
         {
             return bookStoreContext.Authors.Include(e => e.Book).ToList();
+        }
+
+        public List<Author> HisInfo()
+        {
+            //ApplicationUser user = new ApplicationUser();
+            //string userId = user.Identity.GetUserId();
+            //return bookStoreContext.Authors.Include(e => e.Book).Where(e=>e.Id==userId).ToList();
         }
 
         public void Insert(Author author)
