@@ -47,6 +47,11 @@ namespace Final_Project.Reposatiory
             bookStoreContext.SaveChanges();
         }
 
+        public List<Book> Info(string userId)
+        {
+            List<Book> book = bookStoreContext.Books.Where(a => a.Author_Id == userId).ToList();
+            return book;
+        }
         public void Update(string id, Book book)
         {
             bookStoreContext.Books.Update(book);

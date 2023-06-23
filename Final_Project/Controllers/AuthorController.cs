@@ -1,5 +1,6 @@
 ﻿using Final_Project.Models;
 using Final_Project.Reposatiory;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Final_Project.Controllers
@@ -8,14 +9,17 @@ namespace Final_Project.Controllers
     {
         IAuthorRepository authorReposatiory;
         IBookReposatiory bookReposatiory;
-        public AuthorController(
+        private readonly UserManager<ApplicationUser> _userManager;
+       public AuthorController(
+            UserManager<ApplicationUser> userManager,
             IAuthorRepository authorRepo,
             IBookReposatiory bookRebo
-
             )
         {
             authorReposatiory = authorRepo;
             bookReposatiory = bookRebo;
+            _userManager = userManager;
+
 
         }
 
@@ -28,6 +32,7 @@ namespace Final_Project.Controllers
         {
             return View(authorReposatiory.GetAuthors());
         }
+
         public IActionResult getAuthorBtId(string id)
         {
             return View(authorReposatiory.GetAuthor(id));

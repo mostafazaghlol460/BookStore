@@ -6,6 +6,7 @@ namespace Final_Project.Reposatiory
     {
         List<Author> GetAuthors();
         Author GetAuthor(string id);
+
         void Insert(Author author);
         void Update(string id, Author author);
         void Delete(string id);

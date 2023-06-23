@@ -1,15 +1,23 @@
 ﻿using Final_Project.Models;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+
 namespace Final_Project.Reposatiory
 {
     public class AuthorRepository : IAuthorRepository
     {
-        Author author;
-       BookStoreContext bookStoreContext;
-        public AuthorRepository(BookStoreContext _bookStoreContext)
+        BookStoreContext bookStoreContext;
+
+        public ClaimsPrincipal User { get; private set; }
+        public AuthorRepository(
+            BookStoreContext _bookStoreContext
+
+
+            )
         {
             bookStoreContext = _bookStoreContext;
+
         }
         private string GenerateUniqueId()
         {
@@ -29,12 +37,6 @@ namespace Final_Project.Reposatiory
             return bookStoreContext.Authors.Include(e => e.Book).ToList();
         }
 
-        public List<Author> HisInfo()
-        {
-            //ApplicationUser user = new ApplicationUser();
-            //string userId = user.Identity.GetUserId();
-            //return bookStoreContext.Authors.Include(e => e.Book).Where(e=>e.Id==userId).ToList();
-        }
 
         public void Insert(Author author)
         {

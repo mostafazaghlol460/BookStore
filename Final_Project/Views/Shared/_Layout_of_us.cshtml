@@ -58,7 +58,7 @@
 
                                             <li>  <a asp-action="getAll" asp-controller="Book">Our Books</a> </li>
                                         }
-                                        @if (User.IsInRole("Admin") == true)
+                                        @if (User.IsInRole("User") == true)
                                         {
                                             <li>  <a asp-action="DashBoard" asp-controller="Book">DashBoard</a> </li>
                                         }

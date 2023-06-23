@@ -1,6 +1,7 @@
 ﻿using Final_Project.Models;
 using Final_Project.Reposatiory;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
@@ -10,18 +11,20 @@ namespace Final_Project.Controllers
     {
         IAuthorRepository authorReposatiory;
         IBookReposatiory bookReposatiory;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IWebHostEnvironment webHostEnvironment;
 
         public BookController(
             IAuthorRepository authorRepo,
+            UserManager<ApplicationUser> userManager,
             IBookReposatiory bookRebo,
             IWebHostEnvironment webHostEnvironment
 
             )
         {
-
             authorReposatiory = authorRepo;
             bookReposatiory = bookRebo;
+            _userManager = userManager;
             this.webHostEnvironment = webHostEnvironment;
         }
 
@@ -38,8 +41,14 @@ namespace Final_Project.Controllers
             return View(bookReposatiory.GetBooks());
         }
 
+        public IActionResult HisInfo()
+        {
+            var userId = _userManager.GetUserId(User);
+            return View(bookReposatiory.Info(userId));
 
-        [Authorize(Roles = "Admin")]
+        }
+
+        [Authorize(Roles = "User")]
         public IActionResult DashBoard()
         {
             return View(bookReposatiory.GetBooks());

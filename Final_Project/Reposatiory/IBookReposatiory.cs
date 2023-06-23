@@ -11,6 +11,7 @@ namespace Final_Project.Reposatiory
         void Delete(string id);
         void Search(string Name);
         void Searchh(string Name);
+        List<Book> Info(string userId);
 
         void Save();
     }
