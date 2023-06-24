@@ -69,11 +69,11 @@ namespace Final_Project.Controllers
                             }
                             if (role == "Admin")
                             {
-                                //return to Admin action 
-                            }
+                                return RedirectToAction("Home_Admin","Admin");
+                        }
                             if (role == "User")
                             {
-                            return RedirectToAction("getAll", "Book");
+                            return RedirectToAction("DisplayBooks", "EnterUser");
                         }
 
 
@@ -175,9 +175,13 @@ namespace Final_Project.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("login", "Home");
         }
         public IActionResult About()
+        {
+            return View();
+        }
+        public IActionResult ContactUs()
         {
             return View();
         }

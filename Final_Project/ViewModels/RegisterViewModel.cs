@@ -13,7 +13,7 @@ namespace Final_Project.ViewModels
 
         [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Invalid email address")]
         public string Email { get; set; }
-        public string ?Photo { get; set; }
+        public string ?Photo { get; set; } = "default.png";
         public string Addrss { get; set; }
         [Required]
 

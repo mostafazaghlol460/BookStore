@@ -6,11 +6,14 @@ namespace Final_Project.Reposatiory
     {
         List<Categorie> GetCategories();
 
-        Author GetCategorie(int id);
-
+        Categorie GetCategorie(string id);
+        Categorie GetById(string id);
         void Insert(Categorie categorie);
-        void Update(int id, Categorie categorie);
-        void Delete(int id);
+        void Update(string id, Categorie categorie);
+        void Delete(string id);
         void Save();
+
+        List<Categorie> SearchCategories(string searchValue);
+
     }
 }

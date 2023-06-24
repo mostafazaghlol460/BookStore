@@ -4,6 +4,15 @@ namespace Final_Project.Models
 {
     public class Categorie
     {
+        private string GenerateUniqueId()
+        {
+            Guid guid = Guid.NewGuid();
+            return guid.ToString();
+        }
+        public Categorie()
+        {
+            Id = GenerateUniqueId();
+        }
         [Key]
         public string Id { get; set; }
         [Required]

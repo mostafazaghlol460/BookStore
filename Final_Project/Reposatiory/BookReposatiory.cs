@@ -15,12 +15,12 @@ namespace Final_Project.Reposatiory
         {
             Book oldbook = GetBook(id);
             bookStoreContext.Books.Remove(oldbook);
-            bookStoreContext.SaveChanges();
+            Save();
         }
 
         public Book GetBook(string id)
         {
-            Book book = bookStoreContext.Books.FirstOrDefault(a => a.Id == id);
+            Book book = bookStoreContext.Books.Include(n=>n.categorie).Include(n=>n.author).FirstOrDefault(a => a.Id == id);
             return book;
         }
         public void Searchh(string Name)
@@ -33,7 +33,7 @@ namespace Final_Project.Reposatiory
         }
         public List<Book> GetBooks()
         {
-            return bookStoreContext.Books.Include(a => a.author).ToList();
+            return bookStoreContext.Books.Include(n=>n.author).ToList();
         }
 
         public void Insert(Book book)
@@ -49,18 +49,14 @@ namespace Final_Project.Reposatiory
 
         public List<Book> Info(string userId)
         {
-            List<Book> book = bookStoreContext.Books.Where(a => a.Author_Id == userId).ToList();
+            List<Book> book = bookStoreContext.Books.Where(a => a.Author_Id == userId).Include(n=>n.categorie).ToList();
             return book;
         }
-        public void Update(string id, Book book)
+        public void Update(Book book)
         {
             bookStoreContext.Books.Update(book);
-            bookStoreContext.SaveChanges();
-            //Book oldbook = GetBook(id);
-            //oldbook.Name = book.Name;
-            //oldbook.author = book.author;
-            //oldbook.Description = book.Description;
-            //oldbook.categorie = book.categorie;
+            Save();
+
         }
 
     }

@@ -6,6 +6,15 @@ namespace Final_Project.Models
 {
     public class Book
     {
+        private string GenerateUniqueId()
+        {
+            Guid guid = Guid.NewGuid();
+            return guid.ToString();
+        }
+        public Book()
+        {
+            Id = GenerateUniqueId();
+        }
         [Key]
         public string Id { get; set; }
         [DefaultValue(" ")]

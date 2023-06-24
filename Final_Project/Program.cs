@@ -16,6 +16,9 @@ namespace Final_Project
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<AuthorRepository>();
+            builder.Services.AddScoped<CategoryRepository>();
+            builder.Services.AddScoped<BookReposatiory>();
+
             builder.Services.AddDbContext<BookStoreContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectDB"));

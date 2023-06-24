@@ -13,6 +13,14 @@ namespace Final_Project.Models
                : base(options)
         {
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Categorie>()
+                .HasIndex(c => c.Name)
+                .IsUnique();
+
+            base.OnModelCreating(modelBuilder);
+        }
 
     }
 }
