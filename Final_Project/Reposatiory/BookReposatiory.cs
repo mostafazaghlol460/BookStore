@@ -52,9 +52,15 @@ namespace Final_Project.Reposatiory
             List<Book> book = bookStoreContext.Books.Where(a => a.Author_Id == userId).Include(n=>n.categorie).ToList();
             return book;
         }
-        public void Update(Book book)
+        public void Update(string id, Book book)
         {
-            bookStoreContext.Books.Update(book);
+            Book oldbook = GetBook(id);
+            oldbook.Name = book.Name;
+            oldbook.Title = book.Title;
+            oldbook.Description = book.Description;
+            oldbook.Photo = book.Photo;
+            oldbook.categories_Id = book.categories_Id;
+            oldbook.Salary = book.Salary;
             Save();
 
         }

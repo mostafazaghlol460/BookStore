@@ -1,4 +1,4 @@
-﻿@model Final_Project.Models.Author
+﻿@model Final_Project.Models.Book
 
 @{
     ViewData["Title"] = "Delete";
@@ -11,6 +11,17 @@
     <h4>Author</h4>
     <hr />
     <dl class="row">
+        <div class="form-group">
+            <label for="formFile" asp-for="Photo" class="control-label">Photo:</label>
+            <br />
+            @if (Model.Photo != null)
+            {
+                
+                    <img src="/images/@Model.Photo" width="100px">
+                
+            }
+
+        </div>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -18,28 +29,28 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.Title)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
+            @Html.DisplayFor(model => model.Title)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
+            @Html.DisplayNameFor(model => model.Description)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
+            @Html.DisplayFor(model => model.Description)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Photo)
+            @Html.DisplayNameFor(model => model.Salary)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Photo)
+            @Html.DisplayFor(model => model.Salary)
         </dd>
     </dl>
     
-    <form asp-action="Delete">
+    <form asp-action="Delete_book" method="post">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="getBooksAuthor">Back to List</a>
     </form>
 </div>

@@ -60,7 +60,7 @@ namespace Final_Project.Controllers
         }
         [Authorize(Roles = "Author")]
         [HttpPost]
-        public IActionResult AddBook(AddBook model, IFormFile imageFile)
+        public async Task<IActionResult> AddBook(AddBook model, IFormFile imageFile)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +81,7 @@ namespace Final_Project.Controllers
                     // Save the image file to the specified path
                     using (var stream = new FileStream(imagePath, FileMode.Create))
                     {
-                         imageFile.CopyToAsync(stream);
+                         await imageFile.CopyToAsync(stream);
                     }
 
                     // Set the Image property of the Instructor object
@@ -123,8 +123,17 @@ namespace Final_Project.Controllers
         [Authorize(Roles = "Author")]
         [HttpPost]
 
-        public IActionResult Edit_Book(AddBook model, IFormFile? imageFile)
+        public async Task<IActionResult> Edit_Book(AddBook model, IFormFile? imageFile)
         {
+            if (imageFile == null)
+            {
+                var bookCheckPhoto = bookReposatiory.GetBook(model.Id);
+                if (bookCheckPhoto != null)
+                {
+                    model.Photo = bookCheckPhoto.Photo;
+                }
+
+            }
             if (ModelState.IsValid)
             {
                 var book = new Book();
@@ -145,15 +154,13 @@ namespace Final_Project.Controllers
                     // Save the image file to the specified path
                     using (var stream = new FileStream(imagePath, FileMode.Create))
                     {
-                        imageFile.CopyToAsync(stream);
+                         await imageFile.CopyToAsync(stream);
                     }
 
                     // Set the Image property of the Instructor object
                     book.Photo = fileName;
                 }
-
-
-                bookReposatiory.Update(book);
+                 bookReposatiory.Update(book.Id,book);
                 return RedirectToAction("getBooksAuthor");
             }
             List<Categorie> c1 = categorieReposatiory.GetCategories();
@@ -280,12 +287,24 @@ namespace Final_Project.Controllers
 
 
                     }
-                    return RedirectToAction("Profile", "EnterUser", new { id = user.Id });
+                    return RedirectToAction("Profile", "Author", new { id = user.Id });
                 }
             }
 
 
             return View(model);
+        }
+        [HttpGet]
+        public IActionResult Delete(string id)
+        {
+            
+            return View(bookReposatiory.GetBook(id));
+        }
+        [HttpPost]
+        public IActionResult Delete_book(string id)
+        {
+            bookReposatiory.Delete(id);
+            return RedirectToAction(nameof(getBooksAuthor));
         }
 
 

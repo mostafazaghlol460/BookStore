@@ -7,7 +7,7 @@ namespace Final_Project.Reposatiory
         List<Book> GetBooks();
         Book GetBook(string id);
         void Insert(Book book);
-        void Update( Book book);
+        void Update( string id,Book book);
         void Delete(string id);
         void Search(string Name);
         void Searchh(string Name);
